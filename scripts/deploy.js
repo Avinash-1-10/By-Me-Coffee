@@ -15,7 +15,7 @@ async function consoleBalances(addresses) {
 
 async function consoleMemos(memos) {
   for (const memo of memos) {
-    const timestamp = new Date(memo.timestamp * 1000);
+    const timestamp = new Date(Number(memo.timestamp) * 1000).toLocaleString();
     console.log(`From: ${memo.from}`);
     console.log(`Name: ${memo.name}`);
     console.log(`Message: ${memo.message}`);
@@ -50,6 +50,9 @@ async function main() {
     .byCoffee('From 3', 'Very Nice Solidity', amount);
   console.log('After bying coffee');
   await consoleBalances(addresses);
+
+  const memos = await contract.getMemos();
+  console.log(await consoleMemos(memos));
 }
 
 main().catch((error) => {
