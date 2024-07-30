@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import contractAbi from '../../artifacts/contracts/Coffee.sol/Coffee.json';
+import Buy from './components/Buy';
 
 const App = () => {
   const [state, setState] = useState({
@@ -17,7 +18,11 @@ const App = () => {
         await ethereum.request({ method: 'eth_requestAccounts' });
         const provider = new ethers.BrowserProvider(ethereum);
         const signer = await provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, contractAbi.abi, signer);
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractAbi.abi,
+          signer
+        );
         setState({
           provider,
           signer,
@@ -40,7 +45,11 @@ const App = () => {
     connectWallet();
   }, []);
 
-  return <div>App</div>;
+  return (
+    <div>
+      <Buy state={state} />
+    </div>
+  );
 };
 
 export default App;
