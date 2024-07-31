@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import contractAbi from '../../artifacts/contracts/Coffee.sol/Coffee.json';
 import Buy from './components/Buy';
+import Memos from './components/Memos';
 
 const App = () => {
   const [state, setState] = useState({
@@ -48,6 +49,7 @@ const App = () => {
   return (
     <div>
       <Buy state={state} />
+      <Memos state={state} />
     </div>
   );
 };

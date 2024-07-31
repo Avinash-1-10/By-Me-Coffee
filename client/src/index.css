@@ -64,3 +64,80 @@ body {
 .form-button:hover {
   background-color: #0056b3;
 }
+
+
+/* Memo */
+
+/* Container for the table */
+.memos-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Styling for the table */
+.memos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table header styling */
+.memos-table thead {
+  background-color: #4a90e2;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+.memos-table th,
+.memos-table td {
+  padding: 15px;
+}
+
+/* Table body rows styling */
+.memos-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for rows */
+.memos-table tbody tr:hover {
+  background-color: #f5f7fa;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .memos-table thead {
+    display: none;
+  }
+
+  .memos-table tbody tr {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .memos-table tbody td {
+    display: block;
+    text-align: right;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+  }
+
+  .memos-table tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .memos-table tbody td:last-child {
+    border-bottom: 0;
+  }
+}
