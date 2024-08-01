@@ -10,6 +10,9 @@ const App = () => {
     signer: null,
     contract: null,
   });
+  const [reload, setReload] = useState(false);
+
+  const toggleReload = () => setReload((prev) => !prev);
 
   const connectWallet = async () => {
     const contractAddress = '0x4414e0Cb6A94FD93CEB5A84608023bC19e867F4A';
@@ -48,8 +51,8 @@ const App = () => {
 
   return (
     <div>
-      <Buy state={state} />
-      <Memos state={state} />
+      <Buy state={state} toggleReload={toggleReload} />
+      <Memos state={state} reload={reload} />
     </div>
   );
 };

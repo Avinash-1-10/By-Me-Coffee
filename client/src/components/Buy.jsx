@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 
-const Buy = ({ state }) => {
-  const [data, setData] = useState(null);
+const Buy = ({ state, toggleReload }) => {
+  const [data, setData] = useState({ name: '', message: '' });
+
   const buyCoffee = async (event) => {
     event.preventDefault();
-    const { contract } = state;
-    const value = {value: ethers.parseEther('0.001')};
-    const transaction = await contract.byCoffee(
-      data.name,
-      data.message,
-      value
-    );
-    console.log(transaction)
+    try {
+      const { contract } = state;
+      const value = { value: ethers.parseEther('0.001') };
+      const transaction = await contract.byCoffee(
+        data.name,
+        data.message,
+        value
+      );
+      
+      // Wait for transaction to be mined (optional but recommended)
+      await transaction.wait();
+
+      // Reset form data
+      setData({ name: '', message: '' });
+
+      // Trigger reload
+      toggleReload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -24,6 +37,7 @@ const Buy = ({ state }) => {
             className='form-input'
             type='text'
             placeholder='Enter your name'
+            value={data.name}
             onChange={(e) => setData({ ...data, name: e.target.value })}
           />
         </div>
@@ -33,6 +47,7 @@ const Buy = ({ state }) => {
             className='form-input'
             type='text'
             placeholder='Enter message'
+            value={data.message}
             onChange={(e) => setData({ ...data, message: e.target.value })}
           />
         </div>

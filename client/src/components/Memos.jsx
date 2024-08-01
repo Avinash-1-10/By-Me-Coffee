@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Memos = ({ state }) => {
+const Memos = ({ state, reload }) => {
   const [memos, setMemos] = useState([]);
   const { contract } = state;
 
@@ -10,8 +10,10 @@ const Memos = ({ state }) => {
   };
 
   useEffect(() => {
-    contract && getMemos();
-  }, [state]);
+    if (contract) {
+      getMemos();
+    }
+  }, [contract, reload]);
 
   return (
     <div className='memos-container'>
