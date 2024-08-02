@@ -11,6 +11,7 @@ const App = () => {
     contract: null,
   });
   const [reload, setReload] = useState(false);
+  const [account, setAccount] = useState(null);
 
   const toggleReload = () => setReload((prev) => !prev);
 
@@ -19,6 +20,9 @@ const App = () => {
     try {
       const { ethereum } = window;
       if (ethereum) {
+        const account = await ethereum.request({
+          method: 'eth_requestAccounts',
+        });
         await ethereum.request({ method: 'eth_requestAccounts' });
         const provider = new ethers.BrowserProvider(ethereum);
         const signer = await provider.getSigner();
@@ -27,18 +31,14 @@ const App = () => {
           contractAbi.abi,
           signer
         );
+        setAccount(account[0]);
         setState({
           provider,
           signer,
           contract,
         });
-        console.log({
-          provider,
-          signer,
-          contract,
-        });
       } else {
-        console.log('Ethereum object not found, install Metamask.');
+        alert('Ethereum object not found, install Metamask.');
       }
     } catch (error) {
       console.log(error);
@@ -51,6 +51,7 @@ const App = () => {
 
   return (
     <div>
+      {account && <p>{account}</p>}
       <Buy state={state} toggleReload={toggleReload} />
       <Memos state={state} reload={reload} />
     </div>
