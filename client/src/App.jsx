@@ -23,6 +23,15 @@ const App = () => {
         const account = await ethereum.request({
           method: 'eth_requestAccounts',
         });
+        window.ethereum.on('chainChanged', () => {
+          // console.log('chain changed');
+          window.location.reload();
+        });
+
+        window.ethereum.on('accountsChanged', () => {
+          // console.log('account changed');
+          window.location.reload();
+        });
         await ethereum.request({ method: 'eth_requestAccounts' });
         const provider = new ethers.BrowserProvider(ethereum);
         const signer = await provider.getSigner();

@@ -14,7 +14,7 @@ const Buy = ({ state, toggleReload }) => {
         data.message,
         value
       );
-      
+
       // Wait for transaction to be mined (optional but recommended)
       await transaction.wait();
 
@@ -51,7 +51,9 @@ const Buy = ({ state, toggleReload }) => {
             onChange={(e) => setData({ ...data, message: e.target.value })}
           />
         </div>
-        <button className='form-button'>Pay</button>
+        <button className='form-button' disabled={!state?.contract}>
+          Pay
+        </button>
       </form>
     </div>
   );
